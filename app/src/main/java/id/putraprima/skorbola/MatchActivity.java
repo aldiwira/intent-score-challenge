@@ -27,6 +27,8 @@ public class MatchActivity extends AppCompatActivity {
     private TextView homeScore;
     private TextView awayScore;
     private Intent intentWorld;
+    private String[] scorerPlayerHome;
+    private String[] scorerPlayerAway;
     //TODO
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,12 +77,28 @@ public class MatchActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_CANCELED){
-            return ;
+        if (requestCode == RESULT_CANCELED){
+            return;
         }
-        if (resultCode == 1){
-            if (data != null){
-
+        if (requestCode == 1){
+            if (resultCode == RESULT_OK){
+                String namePlayer = data.getStringExtra("name_player");
+                int scoreHome = Integer.parseInt(homeScore.getText().toString());
+                scoreHome++;
+                String skor = Integer.toString(scoreHome);
+                scorerPlayerHome = new String[scoreHome];
+                scorerPlayerHome[scoreHome-1] = namePlayer;
+                homeScore.setText(skor);
+            }
+        } else if(requestCode == 2){
+            if (resultCode == RESULT_OK){
+                String namePlayer = data.getStringExtra("name_player");
+                int scoreAway = Integer.parseInt(awayScore.getText().toString());
+                scoreAway++;
+                String skor = Integer.toString(scoreAway);
+                scorerPlayerAway = new String[scoreAway];
+                scorerPlayerHome[scoreAway-1] = namePlayer;
+                awayScore.setText(skor);
             }
         }
     }
