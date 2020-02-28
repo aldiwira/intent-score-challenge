@@ -26,9 +26,11 @@ public class MatchActivity extends AppCompatActivity {
     private TextView awayTeamName;
     private TextView homeScore;
     private TextView awayScore;
+    private TextView homePlayerScorer;
+    private TextView awayPlayerScorer;
     private Intent intentWorld;
-    private String[] scorerPlayerHome;
-    private String[] scorerPlayerAway;
+    private String scorerPlayerHome = "";
+    private String scorerPlayerAway = "";
     //TODO
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +43,8 @@ public class MatchActivity extends AppCompatActivity {
         awayTeamName = findViewById(R.id.txt_away);
         homeScore = findViewById(R.id.score_home);
         awayScore = findViewById(R.id.score_away);
+        homePlayerScorer = findViewById(R.id.home_scorer_text);
+        awayPlayerScorer = findViewById(R.id.away_scorer_text);
         Bundle dataBundle = getIntent().getExtras();
         if (dataBundle != null){
             try {
@@ -58,12 +62,11 @@ public class MatchActivity extends AppCompatActivity {
             }
         }
 
-
-        //2.Tombol add score menambahkan memindah activity ke scorerActivity dimana pada scorer activity di isikan nama pencetak gol
-        //3.Dari activity scorer akan mengirim kembali ke activity matchactivity otomatis nama pencetak gol dan skor bertambah +1
         //4.Tombol Cek Result menghitung pemenang dari kedua tim dan mengirim nama pemenang beserta nama pencetak gol ke ResultActivity, jika seri di kirim text "Draw",
+
     }
 
+    //2.Tombol add score menambahkan memindah activity ke scorerActivity dimana pada scorer activity di isikan nama pencetak gol
     public void handleAddScoreHome(View view) {
         intentWorld = new Intent(this, ScorerActivity.class);
         startActivityForResult(intentWorld, 1);
@@ -74,6 +77,7 @@ public class MatchActivity extends AppCompatActivity {
         startActivityForResult(intentWorld, 2);
     }
 
+    //3.Dari activity scorer akan mengirim kembali ke activity matchactivity otomatis nama pencetak gol dan skor bertambah +1
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -86,19 +90,18 @@ public class MatchActivity extends AppCompatActivity {
                 int scoreHome = Integer.parseInt(homeScore.getText().toString());
                 scoreHome++;
                 String skor = Integer.toString(scoreHome);
-                scorerPlayerHome = new String[scoreHome];
-                scorerPlayerHome[scoreHome-1] = namePlayer;
                 homeScore.setText(skor);
+                scorerPlayerHome+=namePlayer+"\n";
+                homePlayerScorer.setText(scorerPlayerHome);
             }
         } else if(requestCode == 2){
             if (resultCode == RESULT_OK){
                 String namePlayer = data.getStringExtra("name_player");
                 int scoreAway = Integer.parseInt(awayScore.getText().toString());
                 scoreAway++;
-                String skor = Integer.toString(scoreAway);
-                scorerPlayerAway = new String[scoreAway];
-                scorerPlayerHome[scoreAway-1] = namePlayer;
-                awayScore.setText(skor);
+                awayScore.setText(Integer.toString(scoreAway));
+                scorerPlayerAway+=namePlayer+"\n";
+                awayPlayerScorer.setText(scorerPlayerAway);
             }
         }
     }
