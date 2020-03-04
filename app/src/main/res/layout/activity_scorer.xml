@@ -24,13 +24,12 @@
         android:id="@+id/button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:text="Submit"
         android:onClick="handleScorerName"
+        android:text="Submit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scorer_name_text" />
+        tools:layout_editor_absoluteY="210dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

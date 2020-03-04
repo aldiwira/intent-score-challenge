@@ -53,6 +53,8 @@ public class MatchActivity extends AppCompatActivity {
                 awayTeamName.setText(dataTeam.getAwayTeamName());
                 homeScore.setText(dataTeam.getTeamHomeScore());
                 awayScore.setText(dataTeam.getTeamAwayScore());
+                homeUri = dataTeam.getHomeLogoUri();
+                awayUri = dataTeam.getAwayLogoUri();
                 Bitmap homePath = MediaStore.Images.Media.getBitmap(this.getContentResolver(), dataTeam.getHomeLogoUri());
                 homeLogo.setImageBitmap(homePath);
                 Bitmap awayPath = MediaStore.Images.Media.getBitmap(this.getContentResolver(), dataTeam.getAwayLogoUri());
@@ -104,5 +106,20 @@ public class MatchActivity extends AppCompatActivity {
                 awayPlayerScorer.setText(scorerPlayerAway);
             }
         }
+    }
+
+    public void handleCekHasil(View view) {
+        String homeName = homeTeamName.getText().toString();
+        String awayName = awayTeamName.getText().toString();
+        String skorHome = homeScore.getText().toString();
+        String skorAway = awayScore.getText().toString();
+        String namaScorerHome = scorerPlayerHome;
+        String namaScorerAway = scorerPlayerAway;
+        Uri homePath = homeUri;
+        Uri awayPath = awayUri;
+        ScoreData sd = new ScoreData(homeName, awayName, skorHome, skorAway, homePath, awayPath, namaScorerHome, namaScorerAway);
+        intentWorld = new Intent(this, ResultActivity.class);
+        intentWorld.putExtra(DATA_KEY, sd);
+        startActivity(intentWorld);
     }
 }

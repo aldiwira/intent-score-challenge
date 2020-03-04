@@ -11,8 +11,8 @@ public class ScoreData implements Parcelable {
     private String teamAwayScore;
     private Uri homeLogoUri;
     private Uri awayLogoUri;
-    private String [] homeScorer;
-    private String [] awayScorer;
+    private String homeScorer;
+    private String awayScorer;
 
     //constructor for activity main
 
@@ -25,10 +25,13 @@ public class ScoreData implements Parcelable {
         this.awayLogoUri = awayLogoUri;
     }
 
-    //construcktor for scorer Activity
-
-
-    public ScoreData(String[] homeScorer, String[] awayScorer) {
+    public ScoreData(String homeTeamName, String awayTeamName, String teamHomeScore, String teamAwayScore, Uri homeLogoUri, Uri awayLogoUri, String homeScorer, String awayScorer) {
+        this.homeTeamName = homeTeamName;
+        this.awayTeamName = awayTeamName;
+        this.teamHomeScore = teamHomeScore;
+        this.teamAwayScore = teamAwayScore;
+        this.homeLogoUri = homeLogoUri;
+        this.awayLogoUri = awayLogoUri;
         this.homeScorer = homeScorer;
         this.awayScorer = awayScorer;
     }
@@ -81,19 +84,19 @@ public class ScoreData implements Parcelable {
         this.awayLogoUri = awayLogoUri;
     }
 
-    public String[] getHomeScorer() {
+    public String getHomeScorer() {
         return homeScorer;
     }
 
-    public void setHomeScorer(String[] homeScorer) {
+    public void setHomeScorer(String homeScorer) {
         this.homeScorer = homeScorer;
     }
 
-    public String[] getAwayScorer() {
+    public String getAwayScorer() {
         return awayScorer;
     }
 
-    public void setAwayScorer(String[] awayScorer) {
+    public void setAwayScorer(String awayScorer) {
         this.awayScorer = awayScorer;
     }
 
@@ -110,8 +113,8 @@ public class ScoreData implements Parcelable {
         dest.writeString(this.teamAwayScore);
         dest.writeParcelable(this.homeLogoUri, flags);
         dest.writeParcelable(this.awayLogoUri, flags);
-        dest.writeStringArray(this.homeScorer);
-        dest.writeStringArray(this.awayScorer);
+        dest.writeString(this.homeScorer);
+        dest.writeString(this.awayScorer);
     }
 
     protected ScoreData(Parcel in) {
@@ -121,11 +124,11 @@ public class ScoreData implements Parcelable {
         this.teamAwayScore = in.readString();
         this.homeLogoUri = in.readParcelable(Uri.class.getClassLoader());
         this.awayLogoUri = in.readParcelable(Uri.class.getClassLoader());
-        this.homeScorer = in.createStringArray();
-        this.awayScorer = in.createStringArray();
+        this.homeScorer = in.readString();
+        this.awayScorer = in.readString();
     }
 
-    public static final Parcelable.Creator<ScoreData> CREATOR = new Parcelable.Creator<ScoreData>() {
+    public static final Creator<ScoreData> CREATOR = new Creator<ScoreData>() {
         @Override
         public ScoreData createFromParcel(Parcel source) {
             return new ScoreData(source);

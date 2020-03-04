@@ -26,12 +26,12 @@ public class ScorerActivity extends AppCompatActivity {
         intentWorld = new Intent();
         intentWorld.putExtra("name_player", namePlay);
         setResult(RESULT_OK, intentWorld);
-//        if (namePlay == null ){
-//            finish();
-//        } else {
-//            Toast.makeText(getApplicationContext(), "Isi pemain pencetak gool terlebih dahulu", Toast.LENGTH_SHORT);
-//        }
-        finish();
+        if (namePlay == null ){
+            finish();
+        } else {
+            Toast.makeText(getApplicationContext(), "Isi pemain pencetak gool terlebih dahulu", Toast.LENGTH_SHORT);
+        }
+
 
     }
 }
